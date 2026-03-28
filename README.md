@@ -1,16 +1,15 @@
-## Hi there 👋
+# 🛸 Lead Analyst Labs
 
-<!--
-**leadanalystlabs/leadanalystlabs** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+Welcome! I'm a **Cyber Security Specialist** with a passion for focused on proactive defense and threat intelligence. I operate at the intersection of technical analysis and community-driven security.  I believe in the power of community and the "lifelong learner" mindset.
 
-Here are some ideas to get you started:
+### 🎯 My Focus Areas
+* **Threat Intelligence & Hunting:** Analyzing the "who, why, and how" behind attacks.
+* **Malware Analysis & Sandboxing:** Breaking things apart in a safe box to see how they tick.
+* **Proactive Cybersecurity:** Building defenses that anticipate the next move.
+* **Community Support:** Sharing knowledge and helping others secure their digital lives.
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+### 🤝 Let's Connect
+I'm always looking to collaborate on threat research or help newcomers find their footing in the industry.
+www.linkedin.com/company/lead-analyst-labs
+---
+*"Stay curious. Stay proactive. Stay secure."*
