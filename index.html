@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Analyst Labs | CyberSecurity</title>
+    <style>
+        :root {
+            --neon-pink: #ff00ff;
+            --neon-blue: #00ffff;
+            --dark-bg: #0d0221;
+            --grid-color: rgba(0, 255, 255, 0.1);
+        }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--dark-bg);
+            color: #fff;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(13, 2, 33, 0.9);
+            padding: 2.5rem;
+            border: 2px solid var(--neon-pink);
+            border-radius: 8px;
+            box-shadow: 0 0 25px var(--neon-pink), inset 0 0 10px var(--neon-pink);
+            max-width: 700px;
+            margin: 20px;
+        }
+
+        h1 { 
+            color: var(--neon-blue); 
+            text-shadow: 0 0 10px var(--neon-blue); 
+            letter-spacing: 4px;
+            font-size: 2rem;
+        }
+        
+        .bio { font-size: 1.1rem; margin: 20px 0; line-height: 1.5; }
+
+        .tool-tags {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px;
+        }
+
+        .tag {
+            border: 1px solid var(--neon-blue);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: var(--neon-blue);
+            transition: 0.3s;
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .tag:hover {
+            background: var(--neon-blue);
+            color: var(--dark-bg);
+            box-shadow: 0 0 15px var(--neon-blue);
+            cursor: default;
+        }
+
+        .status { 
+            margin-top: 30px; 
+            color: #7f8c8d; 
+            font-size: 0.8rem; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+        }
+
+        .blink { animation: blinker 1.5s linear infinite; color: var(--neon-pink); }
+        @keyframes blinker { 50% { opacity: 0; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>> LEAD_ANALYST_LABS</h1>
+        <p class="bio">
+            CyberSecurity Specialist | Threat Hunter | Lifelong Learner<br>
+            <small style="color: var(--neon-pink);">[ PROACTIVE DEFENSE & MALWARE ANALYSIS ]</small>
+        </p>
+        
+        <div class="tool-tags">
+            <span class="tag">SentinelOne</span>
+            <span class="tag">Cyber Threat Intelligence</span>
+            <span class="tag">VirusTotal</span>
+            <span class="tag">Hybrid Analysis</span>
+            <span class="tag">GreyNoise</span>
+            <span class="tag">VirtualBox</span>
+            <span class="tag">OSINT</span>
+        </div>
+
+        <p style="margin-top: 25px; font-size: 0.95rem; color: #bdc3c7;">
+            Securing the perimeter and analyzing the unknown.
+        </p>
+        
+        <div class="status">
+            <span class="blink">●</span> SYSTEM STATUS: MONITORING FOR THREATS
+        </div>
+    </div>
+</body>
+</html>
