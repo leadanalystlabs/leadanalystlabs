@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resources | Lead Analyst Labs</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c10;
+    --bg2: #0d1117;
+    --bg3: #111820;
+    --panel: #0f1923;
+    --border: #1e3a4a;
+    --border-glow: #00f5c4;
+    --accent: #00f5c4;
+    --accent2: #0af;
+    --accent3: #7c3aed;
+    --text: #c9d8e0;
+    --text-dim: #5a7a8a;
+    --text-bright: #e8f4f8;
+    --red: #ff4655;
+    --gold: #f5a623;
+    --green: #39d353;
+    --mono: 'Share Tech Mono', monospace;
+    --head: 'Rajdhani', sans-serif;
+    --code: 'Space Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,245,196,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,245,196,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Scanlines */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.1) 2px,
+      rgba(0,0,0,0.1) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(8,12,16,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 0;
+  }
+
+  nav .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: var(--head);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .nav-logo span { color: var(--text-dim); }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    padding: 72px 0 48px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .hero-eyebrow::before { content: '> '; }
+
+  h1 {
+    font-family: var(--head);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 700;
+    color: var(--text-bright);
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  h1 .highlight {
+    color: var(--accent);
+    display: block;
+  }
+
+  .hero-desc {
+    max-width: 620px;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+  }
+
+  .status-bar {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .status-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 6px var(--green);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* FILTER BAR */
+  .filter-bar {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .filter-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 5px 14px;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+  }
+
+  /* SECTION */
+  .section {
+    padding: 56px 0 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .section-title {
+    font-family: var(--head);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-bright);
+  }
+
+  .section-count {
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+    margin-left: 8px;
+  }
+
+  /* RESOURCE GRID */
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+
+  /* RESOURCE CARD */
+  .resource-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 20px 22px;
+    position: relative;
+    transition: all 0.25s;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  }
+
+  .resource-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--card-accent, var(--accent)), transparent);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .resource-card:hover {
+    border-color: var(--card-accent, var(--accent));
+    background: var(--bg3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 16px rgba(0,245,196,0.06);
+  }
+
+  .resource-card:hover::before { opacity: 1; }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .card-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .card-badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .badge {
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border: 1px solid currentColor;
+    font-family: var(--mono);
+  }
+
+  .badge-free { color: var(--green); }
+  .badge-low-cost { color: var(--gold); }
+  .badge-cti { color: var(--accent2); }
+  .badge-veterans { color: #a78bfa; }
+  .badge-florida { color: var(--red); }
+  .badge-hands-on { color: var(--accent); }
+  .badge-daily { color: var(--gold); }
+  .badge-ot { color: #fb923c; }
+  .badge-community { color: #34d399; }
+
+  .card-name {
+    font-family: var(--head);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+  }
+
+  .card-desc {
+    font-size: 0.78rem;
+    line-height: 1.65;
+    color: var(--text-dim);
+    flex: 1;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+
+  .card-type {
+    font-size: 0.62rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .card-link {
+    font-size: 0.68rem;
+    color: var(--card-accent, var(--accent));
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .card-link:hover { opacity: 0.7; }
+  .card-link::after { content: '→'; }
+
+  /* COLOR VARIANTS */
+  .card-cti { --card-accent: #0af; }
+  .card-veterans { --card-accent: #a78bfa; }
+  .card-florida { --card-accent: var(--red); }
+  .card-general { --card-accent: var(--accent); }
+  .card-community { --card-accent: #34d399; }
+  .card-ot { --card-accent: #fb923c; }
+  .card-news { --card-accent: var(--gold); }
+  .card-podcast { --card-accent: #e879f9; }
+
+  /* FEATURED CARD - spans 2 cols */
+  .resource-card.featured {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 28px;
+    background: linear-gradient(135deg, var(--panel), var(--bg3));
+  }
+
+  @media (max-width: 640px) {
+    .resource-card.featured { flex-direction: column; }
+  }
+
+  .featured-body { flex: 1; }
+  .featured-aside {
+    flex-shrink: 0;
+    width: 220px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 16px;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    line-height: 1.8;
+  }
+
+  .featured-aside strong {
+    color: var(--text-bright);
+    display: block;
+    font-family: var(--head);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  /* CALLOUT BOX */
+  .callout {
+    margin: 40px 0 0;
+    padding: 24px 28px;
+    border: 1px solid var(--accent3);
+    background: rgba(124,58,237,0.06);
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  }
+
+  .callout-title {
+    font-family: var(--head);
+    font-size: 1rem;
+    font-weight: 700;
+    color: #a78bfa;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .callout-title::before { content: '// '; }
+
+  .callout p {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+    max-width: 700px;
+  }
+
+  .callout p a {
+    color: #a78bfa;
+    text-decoration: none;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  footer a { color: var(--accent); text-decoration: none; }
+  footer .footer-logo {
+    font-family: var(--head);
+    font-size: 1rem;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  /* CARD ENTRY ANIMATION */
+  .resource-card {
+    animation: cardIn 0.4s ease both;
+  }
+
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .resource-grid .resource-card:nth-child(1) { animation-delay: 0.05s; }
+  .resource-grid .resource-card:nth-child(2) { animation-delay: 0.1s; }
+  .resource-grid .resource-card:nth-child(3) { animation-delay: 0.15s; }
+  .resource-grid .resource-card:nth-child(4) { animation-delay: 0.2s; }
+  .resource-grid .resource-card:nth-child(5) { animation-delay: 0.25s; }
+  .resource-grid .resource-card:nth-child(6) { animation-delay: 0.3s; }
+
+  .tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+
+  .tag {
+    font-size: 0.6rem;
+    padding: 1px 7px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* SECTION ICON */
+  .section-icon {
+    font-size: 1rem;
+    margin-right: 10px;
+  }
+
+  /* Hidden cards for filter */
+  .resource-card.hidden {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    h1 { font-size: 2rem; }
+    .nav-links { display: none; }
+    .resource-grid { grid-template-columns: 1fr; }
+    .featured-aside { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrapper">
+    <a href="/" class="nav-logo">Lead<span>_</span>Analyst<span>_</span>Labs</a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/resources.html" class="active">Resources</a></li>
+      <li><a href="https://www.linkedin.com/in/the-kyle-ford" target="_blank">LinkedIn</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="wrapper">
+      <p class="hero-eyebrow">Free &amp; Low-Cost Learning</p>
+      <h1>Cybersecurity <span class="highlight">Resources</span></h1>
+      <p class="hero-desc">
+        A curated collection of free and low-cost training platforms, communities, and tools — 
+        hand-picked for people breaking into cybersecurity, transitioning from the military, 
+        or leveling up in Threat Intelligence and threat hunting.
+      </p>
+      <div class="status-bar">
+        <div class="status-pill"><div class="status-dot"></div> Verified &amp; Active</div>
+        <div class="status-pill">// Curated by Kyle Ford · Lead Analyst Labs</div>
+        <div class="status-pill">// Last updated April 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="filter-bar">
+    <div class="wrapper">
+      <p class="filter-label">Filter by category:</p>
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="general">General / Career</button>
+        <button class="filter-btn" data-filter="cti">CTI &amp; Threat Hunting</button>
+        <button class="filter-btn" data-filter="veterans">Veterans &amp; Military</button>
+        <button class="filter-btn" data-filter="florida">Florida-Specific</button>
+        <button class="filter-btn" data-filter="community">Community &amp; News</button>
+        <button class="filter-btn" data-filter="podcasts">Podcasts</button>
+        <button class="filter-btn" data-filter="ot">OT / ICS</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GENERAL / CAREER TRAINING -->
+  <section class="section" id="general">
+    <div class="wrapper">
+      <div class="section-header">
+        <span class="section-icon">🎓</span>
+        <h2 class="section-title">General &amp; Career Training</h2>
+        <span class="section-count">// 5 resources</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="resource-grid">
+
+        <div class="resource-card card-general" data-cats="general">
+          <div class="card-top">
+            <span class="card-icon">🧠</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+              <span class="badge badge-low-cost">Low Cost</span>
+            </div>
+          </div>
+          <div class="card-name">Simply Cyber &amp; Simply Cyber Academy</div>
+          <p class="card-desc">Dr. Gerald Auger's cybersecurity career platform. Free YouTube channel, daily threat brief, and a growing Academy with free and paid courses covering SOC, GRC, CTI, and more. One of the best communities for going further, faster in a cyber career.</p>
+          <div class="tag-row">
+            <span class="tag">Career Development</span>
+            <span class="tag">SOC</span>
+            <span class="tag">GRC</span>
+            <span class="tag">Threat Intel</span>
+            <span class="tag">Free + Paid</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">Platform / YouTube / Academy</span>
+            <a href="https://www.simplycyber.io" class="card-link" target="_blank">Visit SimplyCyber</a>
+          </div>
+        </div>
+
+        <div class="resource-card card-general" data-cats="general">
+          <div class="card-top">
+            <span class="card-icon">⚔️</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+              <span class="badge badge-low-cost">Pay What You Can</span>
+            </div>
+          </div>
+          <div class="card-name">Antisyphon Training</div>
+          <p class="card-desc">High-quality, hands-on cybersecurity training from the team behind Black Hills Information Security. Courses range from beginner to advanced across offensive and defensive tracks. Offers a "Pay What You Can" model starting at $25 — making world-class training genuinely accessible.</p>
+          <div class="tag-row">
+            <span class="tag">Hands-On</span>
+            <span class="tag">SOC</span>
+            <span class="tag">Threat Hunting</span>
+            <span class="tag">Red Team</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">Live &amp; On-Demand Training</span>
+            <a href="https://www.antisyphontraining.com" class="card-link" target="_blank">Visit Site</a>
+          </div>
+        </div>
+
+        <div class="resource-card card-general" data-cats="general">
+          <div class="card-top">
+            <span class="card-icon">🛡️</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+            </div>
+          </div>
+          <div class="card-name">Black Hills Information Security</div>
+          <p class="card-desc">BHIS is home base for some of the most respected practitioners in the industry. Free webinars, blogs, tools, and their legendary "Backdoors &amp; Breaches" card game are all available. The brains behind Antisyphon Training — these folks genuinely believe in giving back to the community.</p>
+          <div class="tag-row">
+            <span class="tag">Webinars</span>
+            <span class="tag">Tools</span>
+            <span class="tag">Community</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">Blog / Webinars / Community</span>
+            <a href="https://www.blackhillsinfosec.com" class="card-link" target="_blank">Visit BHIS</a>
+          </div>
+        </div>
+
+        <div class="resource-card card-general" data-cats="general">
+          <div class="card-top">
+            <span class="card-icon">🎙️</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+            </div>
+          </div>
+          <div class="card-name">IT Career Questions (YouTube)</div>
+          <p class="card-desc">A candid, community-driven YouTube channel covering real-talk about getting into IT and cybersecurity. Great for folks trying to understand the job landscape, salary expectations, and how to navigate certifications without the usual fluff.</p>
+          <div class="tag-row">
+            <span class="tag">Career Advice</span>
+            <span class="tag">Certs</span>
+            <span class="tag">Entry Level</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">YouTube Channel</span>
+            <a href="https://www.youtube.com/@ITCareerQuestions" class="card-link" target="_blank">Watch on YouTube</a>
+          </div>
+        </div>
+
+        <div class="resource-card card-general" data-cats="general">
+          <div class="card-top">
+            <span class="card-icon">🎬</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+            </div>
+          </div>
+          <div class="card-name">Kathy Chambers Media</div>
+          <p class="card-desc">Emmy-winning cybersecurity communicator and podcast producer. Kathy creates content that bridges the gap between technical expertise and human storytelling — great for understanding how to communicate security concepts and build a personal brand in the industry.</p>
+          <div class="tag-row">
+            <span class="tag">Podcasts</span>
+            <span class="tag">Personal Brand</span>
+            <span class="tag">Storytelling</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">Media / Production / Podcast</span>
+            <a href="https://www.linkedin.com/in/kathychambersllc/" class="card-link" target="_blank">Connect on LinkedIn</a>
+          </div>
+        </div>
+
+        <div class="resource-card card-general" data-cats="general">
+          <div class="card-top">
+            <span class="card-icon">🏛️</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+            </div>
+          </div>
+          <div class="card-name">CISA Training &amp; Exercises</div>
+          <p class="card-desc">The Cybersecurity &amp; Infrastructure Security Agency offers free online training and tabletop exercise resources for security professionals at every level. Especially valuable for understanding how the government thinks about threats to critical infrastructure — directly relevant to CTI careers.</p>
+          <div class="tag-row">
+            <span class="tag">Government</span>
+            <span class="tag">Critical Infrastructure</span>
+            <span class="tag">Tabletop</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">Government Training Platform</span>
+            <a href="https://www.cisa.gov/cybersecurity-training-exercises" class="card-link" target="_blank">Visit CISA</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTI & THREAT HUNTING -->
+  <section class="section" id="cti">
+    <div class="wrapper">
+      <div class="section-header">
+        <span class="section-icon">🔍</span>
+        <h2 class="section-title">CTI &amp; Threat Hunting</h2>
+        <span class="section-count">// 3 resources</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="resource-grid">
+
+        <div class="resource-card card-cti" data-cats="cti">
+          <div class="card-top">
+            <span class="card-icon">🔥</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+              <span class="badge badge-hands-on">Hands-On</span>
+              <span class="badge badge-cti">CTI</span>
+            </div>
+          </div>
+          <div class="card-name">Flare Academy</div>
+          <p class="card-desc">Free, researcher-led cybersecurity training sessions from the threat intelligence experts at Flare. Covers cybercrime forums, dark web investigation, threat actor deanonymization, ransomware analysis, and more. Earn CPE credits and join a Discord community of active defenders. <em>Highly recommended for CTI practitioners.</em></p>
+          <div class="tag-row">
+            <span class="tag">Dark Web</span>
+            <span class="tag">Threat Actors</span>
+            <span class="tag">CTI</span>
+            <span class="tag">CPE Credits</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">Live &amp; On-Demand / Discord</span>
+            <a href="https://flare.io/flare-academy" class="card-link" target="_blank">Visit Flare Academy</a>
+          </div>
+        </div>
+
+        <div class="resource-card card-cti" data-cats="cti">
+          <div class="card-top">
+            <span class="card-icon">📡</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+              <span class="badge badge-cti">CTI</span>
+            </div>
+          </div>
+          <div class="card-name">SOCRadar Academy</div>
+          <p class="card-desc">A free learning platform with courses specifically built around Cyber Threat Intelligence — including a free Dark Web course, CTI Fundamentals for SOC Analysts, and courses on attack surface management. Taught by real practitioners and aligned with industry frameworks like MITRE ATT&amp;CK, the Pyramid of Pain, and the Intelligence Lifecycle.</p>
+          <div class="tag-row">
+            <span class="tag">CTI</span>
+            <span class="tag">Dark Web</span>
+            <span class="tag">MITRE ATT&amp;CK</span>
+            <span class="tag">IOC Analysis</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">Online Training Platform</span>
+            <a href="https://academy.socradar.io" class="card-link" target="_blank">Visit Academy</a>
+          </div>
+        </div>
+
+        <div class="resource-card card-cti" data-cats="cti">
+          <div class="card-top">
+            <span class="card-icon">🔬</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+              <span class="badge badge-cti">DFIR</span>
+              <span class="badge badge-hands-on">Hands-On</span>
+            </div>
+          </div>
+          <div class="card-name">DFIR Diva</div>
+          <p class="card-desc">The gold standard free resource site for DFIR (Digital Forensics &amp; Incident Response) training. Over 500 curated free and affordable resources covering Digital Forensics, Incident Response, Malware Analysis, OSINT, Cloud DFIR, CTI, Threat Hunting, and more. Also includes a free Incident Response Training Plan from complete beginner to working analyst.</p>
+          <div class="tag-row">
+            <span class="tag">DFIR</span>
+            <span class="tag">Malware Analysis</span>
+            <span class="tag">OSINT</span>
+            <span class="tag">Training Plans</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">Resource Aggregator / Blog</span>
+            <a href="https://training.dfirdiva.com" class="card-link" target="_blank">Browse Resources</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- VETERANS & MILITARY -->
+  <section class="section" id="veterans">
+    <div class="wrapper">
+      <div class="section-header">
+        <span class="section-icon">🎖️</span>
+        <h2 class="section-title">Veterans &amp; Military Transition</h2>
+        <span class="section-count">// 3 resources</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="resource-grid">
+
+        <div class="resource-card card-veterans" data-cats="veterans">
+          <div class="card-top">
+            <span class="card-icon">📚</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+              <span class="badge badge-veterans">Veterans</span>
+            </div>
+          </div>
+          <div class="card-name">Boots to Books</div>
+          <p class="card-desc">A nonprofit providing no-cost assistance to veterans, transitioning military members, and military families in attaining cybersecurity education and employment. Offers free access to Google's Cybersecurity Certificate, up to $1,000 in certification vouchers (CompTIA, etc.), monthly live events, and job placement connections. If you served, this is a must-know resource.</p>
+          <div class="tag-row">
+            <span class="tag">Veterans</span>
+            <span class="tag">Cert Vouchers</span>
+            <span class="tag">Job Placement</span>
+            <span class="tag">Military Spouses</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">Nonprofit / Scholarships / Events</span>
+            <a href="https://boots2books.com" class="card-link" target="_blank">Visit Boots to Books</a>
+          </div>
+        </div>
+
+        <div class="resource-card card-veterans" data-cats="veterans">
+          <div class="card-top">
+            <span class="card-icon">🎯</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+              <span class="badge badge-veterans">Veterans</span>
+            </div>
+          </div>
+          <div class="card-name">ACT Now Education</div>
+          <p class="card-desc">A nonprofit founded by a Marine veteran serving 77,000+ transitioning service members, veterans, and spouses. Provides free certifications, career resources, career advancement mentorship, and structured pathways from military service into civilian cybersecurity careers. The founder received the Spirit of Hope Award for this work.</p>
+          <div class="tag-row">
+            <span class="tag">Veterans</span>
+            <span class="tag">Free Certs</span>
+            <span class="tag">Mentorship</span>
+            <span class="tag">Transition</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">Nonprofit / Training / Mentorship</span>
+            <a href="https://actnoweducation.org" class="card-link" target="_blank">Visit ACT Now</a>
+          </div>
+        </div>
+
+        <div class="resource-card card-veterans" data-cats="veterans florida">
+          <div class="card-top">
+            <span class="card-icon">🌐</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+              <span class="badge badge-veterans">Veterans</span>
+            </div>
+          </div>
+          <div class="card-name">CyberSkills2Work — National Program</div>
+          <p class="card-desc">A federally funded national cybersecurity workforce development program led by the University of West Florida and backed by the NSA and DoD — but delivered through a <strong>coalition of 10 NCAE-C institutions</strong> across the country. Completely free for transitioning military, first responders, veterans, military spouses, and government personnel. Each institution offers its own training pathways for roles like Cyber Defense Analyst, System Administrator, and AI/ML Specialist — with full cert vouchers (Security+, CySA+, etc.), digital badges, and job placement support. Florida residents can also access the UWF-specific CyberSkills2Work Florida pathway listed below.</p>
+          <div class="tag-row">
+            <span class="tag">National Coalition</span>
+            <span class="tag">NSA / DoD Funded</span>
+            <span class="tag">First Responders</span>
+            <span class="tag">Cert Vouchers</span>
+            <span class="tag">10 Institutions</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">Federal Workforce Program · Nationwide</span>
+            <a href="https://www.cyberskills2work.org" class="card-link" target="_blank">Find Your Pathway</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FLORIDA SPECIFIC -->
+  <section class="section" id="florida">
+    <div class="wrapper">
+      <div class="section-header">
+        <span class="section-icon">🌴</span>
+        <h2 class="section-title">Florida-Specific Programs</h2>
+        <span class="section-count">// 2 resources</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="resource-grid">
+
+        <div class="resource-card card-florida" data-cats="florida">
+          <div class="card-top">
+            <span class="card-icon">🦅</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+              <span class="badge badge-florida">Florida</span>
+              <span class="badge badge-veterans">Veterans</span>
+            </div>
+          </div>
+          <div class="card-name">Cyber Florida at USF — CyberWorks</div>
+          <p class="card-desc">The Florida Center for Cybersecurity at the University of South Florida runs multiple free programs for Florida residents. CyberWorks is their flagship multi-week hands-on training program preparing students for Tier 1 Cyber Analyst roles (avg. starting salary ~$111K). Also includes FirstLine (free public-sector training) and the ARCS Range (free cyber range for state employees).</p>
+          <div class="tag-row">
+            <span class="tag">Florida Residents</span>
+            <span class="tag">Hands-On Labs</span>
+            <span class="tag">Veterans</span>
+            <span class="tag">First Responders</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">State-Funded / Workforce Program</span>
+            <a href="https://cyberflorida.org/cyberworks/" class="card-link" target="_blank">Apply to CyberWorks</a>
+          </div>
+        </div>
+
+        <div class="resource-card card-florida" data-cats="florida">
+          <div class="card-top">
+            <span class="card-icon">🎓</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+              <span class="badge badge-florida">Florida</span>
+            </div>
+          </div>
+          <div class="card-name">CyberSkills2Work Florida (UWF)</div>
+          <p class="card-desc">The University of West Florida's Florida-specific arm of CyberSkills2Work. Offers free, asynchronous cybersecurity training pathways for eligible Florida residents — covering System Administrator, Cyber Defense Analyst, and AI/ML Specialist roles. Includes certification prep for CompTIA A+, Network+, and Security+, all at zero cost.</p>
+          <div class="tag-row">
+            <span class="tag">Florida Only</span>
+            <span class="tag">CompTIA</span>
+            <span class="tag">Online / Async</span>
+            <span class="tag">UWF</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">State + Federal Program</span>
+            <a href="https://uwf.edu/centers/center-for-cybersecurity/workforce-development/cyberskills2work-florida/" class="card-link" target="_blank">Learn More</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMUNITY & NEWS -->
+  <section class="section" id="community">
+    <div class="wrapper">
+      <div class="section-header">
+        <span class="section-icon">📰</span>
+        <h2 class="section-title">Community &amp; Daily Intel</h2>
+        <span class="section-count">// 2 resources</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="resource-grid">
+
+        <div class="resource-card card-news" data-cats="community">
+          <div class="card-top">
+            <span class="card-icon">☕</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+              <span class="badge badge-daily">Daily</span>
+            </div>
+          </div>
+          <div class="card-name">Simply Cyber — Daily Cyber Threat Brief</div>
+          <p class="card-desc">Live every weekday at 8 AM Eastern with Dr. Gerald Auger. The most consistent daily habit in cybersecurity — breaking down the top threat stories, what they mean, and why they matter. Replay on Spotify and YouTube. One of Kyle's morning non-negotiables, and for good reason.</p>
+          <div class="tag-row">
+            <span class="tag">Daily Intel</span>
+            <span class="tag">News Analysis</span>
+            <span class="tag">Live Stream</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">Live Stream / Podcast · Daily</span>
+            <a href="https://www.simplycyber.io/streams" class="card-link" target="_blank">Tune In</a>
+          </div>
+        </div>
+
+        <div class="resource-card card-community" data-cats="community">
+          <div class="card-top">
+            <span class="card-icon">🌐</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+              <span class="badge badge-community">Community</span>
+            </div>
+          </div>
+          <div class="card-name">Global Cyber Aid</div>
+          <p class="card-desc">A nonprofit cybersecurity community focused on access, equity, and education in the field — particularly for those facing financial or geographic barriers to traditional training. Shares resources, opportunities, and community connections. Follow them on LinkedIn to stay plugged in.</p>
+          <div class="tag-row">
+            <span class="tag">Nonprofit</span>
+            <span class="tag">Access &amp; Equity</span>
+            <span class="tag">Community</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">Nonprofit / Community</span>
+            <a href="https://www.linkedin.com/company/globalcyberaid/posts/" class="card-link" target="_blank">Follow on LinkedIn</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PODCASTS -->
+  <section class="section" id="podcasts">
+    <div class="wrapper">
+      <div class="section-header">
+        <span class="section-icon">🎙️</span>
+        <h2 class="section-title">Podcasts</h2>
+        <span class="section-count">// 6 shows</span>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="resource-grid">
+
+        <!-- DarkNet Diaries -->
+        <div class="resource-card card-news" data-cats="community podcasts">
+          <div class="card-top">
+            <span class="card-icon">🕷️</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+              <span class="badge badge-cti">CTI Stories</span>
+            </div>
+          </div>
+          <div class="card-name">Darknet Diaries</div>
+          <p class="card-desc">Hosted by Jack Rhysider (former network security engineer), this is investigative journalism for the hacking world. Real stories of breaches, cybercrime, hacktivism, and shadow operations — told with documentary depth. One of the most-recommended shows in the entire security community, and a must for understanding how real attacks unfold from start to finish.</p>
+          <div class="tag-row">
+            <span class="tag">True Crime / Hacking</span>
+            <span class="tag">APT</span>
+            <span class="tag">Breach Stories</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">Podcast · Episodic</span>
+            <a href="https://darknetdiaries.com" class="card-link" target="_blank">Listen</a>
+          </div>
+        </div>
+
+        <!-- SpyCast -->
+        <div class="resource-card card-news" data-cats="community podcasts">
+          <div class="card-top">
+            <span class="card-icon">🕵️</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+              <span class="badge badge-cti">Intel Tradecraft</span>
+            </div>
+          </div>
+          <div class="card-name">SpyCast — The International Spy Museum</div>
+          <p class="card-desc">Produced by the International Spy Museum in Washington D.C., SpyCast digs into espionage history, intelligence tradecraft, and the human side of intelligence operations. An underrated must-listen for CTI professionals — understanding how nation-state intelligence works gives direct context to APT behavior and adversary motivation.</p>
+          <div class="tag-row">
+            <span class="tag">Intelligence</span>
+            <span class="tag">Nation-State</span>
+            <span class="tag">Tradecraft</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">Podcast · Weekly</span>
+            <a href="https://www.spymuseum.org/education-programs/spy-cast/" class="card-link" target="_blank">Listen</a>
+          </div>
+        </div>
+
+        <!-- Risky Business -->
+        <div class="resource-card card-news" data-cats="community podcasts">
+          <div class="card-top">
+            <span class="card-icon">📊</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+            </div>
+          </div>
+          <div class="card-name">Risky Business</div>
+          <p class="card-desc">Hosted by Patrick Gray, Risky Business has been one of the most respected independent security podcasts for over a decade. Weekly in-depth interviews with senior security practitioners, threat researchers, and policy experts. Excellent for understanding the business, geopolitical, and technical dimensions of the threat landscape — the show real practitioners actually listen to.</p>
+          <div class="tag-row">
+            <span class="tag">Industry Insight</span>
+            <span class="tag">Policy</span>
+            <span class="tag">Threat Research</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">Podcast · Weekly</span>
+            <a href="https://risky.biz" class="card-link" target="_blank">Listen</a>
+          </div>
+        </div>
+
+        <!-- CyberWire Daily -->
+        <div class="resource-card card-news" data-cats="community podcasts">
+          <div class="card-top">
+            <span class="card-icon">📡</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+              <span class="badge badge-daily">Daily</span>
+            </div>
+          </div>
+          <div class="card-name">CyberWire Daily</div>
+          <p class="card-desc">Hosted by Dave Bittner, this is the NPR of cybersecurity news — concise, professional, and released every weekday. About 25–30 minutes covering the day's biggest security stories with expert commentary. Pairs perfectly with the Simply Cyber Daily Threat Brief for a rounded daily intel diet. Trusted by practitioners and business leaders alike.</p>
+          <div class="tag-row">
+            <span class="tag">Daily News</span>
+            <span class="tag">Threat Intel</span>
+            <span class="tag">Industry</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">Podcast · Daily</span>
+            <a href="https://thecyberwire.com/podcasts/cyberwire-daily" class="card-link" target="_blank">Listen</a>
+          </div>
+        </div>
+
+        <!-- The Cyber Mentor -->
+        <div class="resource-card card-general" data-cats="general podcasts">
+          <div class="card-top">
+            <span class="card-icon">🧑‍💻</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+              <span class="badge badge-hands-on">Hands-On</span>
+            </div>
+          </div>
+          <div class="card-name">The Cyber Mentor (TCM Security)</div>
+          <p class="card-desc">Heath Adams' YouTube channel is one of the most practical, no-fluff resources in the industry. Covers ethical hacking, penetration testing, SOC skills, and career development. TCM Security's Academy also has free courses alongside paid ones. Known for making professional-level skills accessible and affordable — a genuine community staple.</p>
+          <div class="tag-row">
+            <span class="tag">Ethical Hacking</span>
+            <span class="tag">Pen Testing</span>
+            <span class="tag">SOC</span>
+            <span class="tag">Career</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">YouTube / Academy</span>
+            <a href="https://www.youtube.com/@TCMSecurityAcademy" class="card-link" target="_blank">Watch</a>
+          </div>
+        </div>
+
+        <!-- TrustedSec Security Noise -->
+        <div class="resource-card card-news" data-cats="community podcasts">
+          <div class="card-top">
+            <span class="card-icon">📻</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free</span>
+            </div>
+          </div>
+          <div class="card-name">Security Noise — TrustedSec</div>
+          <p class="card-desc">Hosted by Geoff Walton and Skyler Tuter, Security Noise features TrustedSec's cybersecurity experts in candid conversation about the infosec topics they actually care about. Covers everything from Active Directory and identity security to AI-assisted pentesting and SOC detection improvement. Now available on YouTube as well as audio.</p>
+          <div class="tag-row">
+            <span class="tag">Pentesting</span>
+            <span class="tag">Blue Team</span>
+            <span class="tag">Detection</span>
+            <span class="tag">Identity Security</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">Podcast · Video · TrustedSec</span>
+            <a href="https://www.trustedsec.com/podcasts/" class="card-link" target="_blank">Listen</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- OT / ICS SECURITY -->
+  <section class="section" id="ot">
+    <div class="wrapper">
+      <div class="section-header">
+        <span class="section-icon">⚙️</span>
+        <h2 class="section-title">OT / ICS Security</h2>
+        <span class="section-count">// 1 resource</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="resource-grid">
+
+        <div class="resource-card card-ot" data-cats="ot">
+          <div class="card-top">
+            <span class="card-icon">🏭</span>
+            <div class="card-badges">
+              <span class="badge badge-free">Free Trial</span>
+              <span class="badge badge-ot">OT / ICS</span>
+              <span class="badge badge-hands-on">Hands-On</span>
+            </div>
+          </div>
+          <div class="card-name">Labshock — OT Security Lab</div>
+          <p class="card-desc">A hands-on OT and ICS security learning platform that spins up a realistic industrial control system environment using Docker — including PLCs, SCADA, real protocols like Modbus TCP, and a built-in IDS. Free trial mode available. Perfect for anyone wanting to understand how critical infrastructure attacks actually work in a safe, isolated lab. Bridges the gap between IT and OT security.</p>
+          <div class="tag-row">
+            <span class="tag">ICS / SCADA</span>
+            <span class="tag">Modbus</span>
+            <span class="tag">Docker Lab</span>
+            <span class="tag">Critical Infra</span>
+          </div>
+          <div class="card-meta">
+            <span class="card-type">Virtual Lab Platform</span>
+            <a href="https://www.labshocksecurity.com/home" class="card-link" target="_blank">Visit Labshock</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="callout">
+        <p class="callout-title">Why OT/ICS Matters for CTI</p>
+        <p>As a former Marine Science Technician who worked maritime security — including facilities tied to critical infrastructure — understanding how adversaries target Operational Technology is a natural extension of your background. OT/ICS threat intelligence is a specialized, high-demand niche. Resources like Labshock and <a href="https://www.dragos.com/community/ot-cert" target="_blank">Dragos OT-CERT</a> (also free) are excellent starting points.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrapper">
+    <div class="callout" style="margin: 56px 0;">
+      <p class="callout-title">Have a Resource to Suggest?</p>
+      <p>This list is curated and growing. If you know of a free or low-cost resource that belongs here — especially in the CTI, threat hunting, or veteran-focused space — reach out. Community-driven intelligence is what this is all about. Connect via <a href="https://www.linkedin.com/in/the-kyle-ford" target="_blank">LinkedIn</a> or open a discussion in the <a href="https://github.com/leadanalystlabs/leadanalystlabs" target="_blank">Lead Analyst Labs GitHub</a>.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrapper">
+    <span class="footer-logo">Lead Analyst Labs</span>
+    Curated by Kyle Ford · Cyber Threat Intelligence Analyst<br>
+    <a href="https://www.linkedin.com/in/the-kyle-ford" target="_blank">LinkedIn</a> &nbsp;|&nbsp;
+    <a href="https://github.com/leadanalystlabs" target="_blank">GitHub</a> &nbsp;|&nbsp;
+    <a href="https://leadanalystlabs.com" target="_blank">leadanalystlabs.com</a>
+    <br><br>
+    <span style="font-size:0.6rem; opacity:0.5">// Not affiliated with any of the listed organizations. No sponsored placements.</span>
+  </div>
+</footer>
+
+<script>
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.resource-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+
+      cards.forEach(card => {
+        if (filter === 'all') {
+          card.classList.remove('hidden');
+        } else {
+          const cats = card.dataset.cats || '';
+          if (cats.includes(filter)) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>
