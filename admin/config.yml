@@ -1,9 +1,9 @@
 backend:
   name: github
-  repo: LeadAnalystLabs/leadanalystlabs.github.io
+  repo: leadanalystlabs/leadanalystlabs
   branch: main
   base_url: https://auth.leadanalystlabs.com
-  auth_endpoint: /auth
+  auth_endpoint: auth
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
