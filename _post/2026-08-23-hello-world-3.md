@@ -1,5 +1,0 @@
----
-title: Hello World
-date: 2026-08-23T10:56:00.000-04:00
----
-Welcome to my Blog!
