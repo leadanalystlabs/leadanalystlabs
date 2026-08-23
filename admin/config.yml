@@ -5,16 +5,32 @@ backend:
   base_url: https://auth.leadanalystlabs.com
   auth_endpoint: auth
 
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
+media_folder: "images/blog"
+public_folder: "/images/blog"
 
 collections:
   - name: "blog"
-    label: "Blog"
-    folder: "content/blog"
+    label: "Blog Posts"
+    folder: "blog"
     create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md"
+    format: "frontmatter"
     fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Publish Date", name: "date", widget: "datetime"}
-      - {label: "Featured Image", name: "image", widget: "image", required: false}
-      - {label: "Body", name: "body", widget: "markdown"}
+      - label: "Title"
+        name: "title"
+        widget: "string"
+      - label: "Publish date"
+        name: "date"
+        widget: "datetime"
+      - label: "Featured image"
+        name: "image"
+        widget: "image"
+        required: false
+      - label: "Summary"
+        name: "description"
+        widget: "text"
+        required: false
+      - label: "Post body"
+        name: "body"
+        widget: "markdown"
