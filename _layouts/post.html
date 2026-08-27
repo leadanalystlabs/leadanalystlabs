@@ -1,0 +1,229 @@
+---
+layout: none
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ page.title }} | Lead Analyst Labs</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c10;
+    --bg2: #0d1117;
+    --bg3: #111820;
+    --panel: #0f1923;
+    --border: #1e3a4a;
+    --border-glow: #00f5c4;
+    --accent: #00f5c4;
+    --accent2: #0af;
+    --accent3: #7c3aed;
+    --text: #c9d8e0;
+    --text-dim: #5a7a8a;
+    --text-bright: #e8f4f8;
+    --mono: 'Share Tech Mono', monospace;
+    --head: 'Rajdhani', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,245,196,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,245,196,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+    width: 100%;
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 60px 0;
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(8,12,16,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 0;
+  }
+
+  nav .wrapper {
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: var(--head);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .nav-logo span { color: var(--text-dim); }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  .post-header {
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+  }
+
+  .post-title {
+    font-family: var(--head);
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 700;
+    color: var(--text-bright);
+    margin-bottom: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .post-date {
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .post-content {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 40px;
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+    line-height: 1.8;
+    color: var(--text);
+  }
+
+  .post-content img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  .post-content h2, .post-content h3 {
+    font-family: var(--head);
+    color: var(--text-bright);
+    margin-top: 24px;
+    margin-bottom: 12px;
+  }
+
+  .post-content p {
+    margin-bottom: 16px;
+  }
+
+  footer {
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  footer a { color: var(--accent); text-decoration: none; }
+  footer .footer-logo {
+    font-family: var(--head);
+    font-size: 1rem;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrapper">
+    <a href="/" class="nav-logo">Lead<span>_</span>Analyst<span>_</span>Labs</a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/resources.html">Resources</a></li>
+      <li><a href="https://www.linkedin.com/company/lead-analyst-labs" target="_blank">LinkedIn</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="wrapper">
+  <article>
+    <div class="post-header">
+      <h1 class="post-title">{{ page.title }}</h1>
+      <div class="post-date">{{ page.date | date: "%B %d, %Y" }}</div>
+    </div>
+    <div class="post-content">
+      {% if page.image %}
+        <img src="{{ page.image }}" alt="{{ page.title }}">
+      {% endif %}
+      {{ content }}
+    </div>
+  </article>
+</main>
+
+<footer>
+  <div class="wrapper">
+    <span class="footer-logo">Lead Analyst Labs</span>
+    Maintained by Kyle Ford · Cyber Threat Intelligence Analyst<br>
+    <a href="https://www.linkedin.com/company/lead-analyst-labs" target="_blank">LinkedIn</a> &nbsp;|&nbsp;
+    <a href="https://github.com/leadanalystlabs" target="_blank">GitHub</a> &nbsp;|&nbsp;
+    <a href="https://leadanalystlabs.com" target="_blank">leadanalystlabs.com</a>
+  </div>
+</footer>
+
+</body>
+</html>
