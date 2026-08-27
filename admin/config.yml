@@ -27,6 +27,10 @@ collections:
         name: "image"
         widget: "image"
         required: false
+      - label: "Layout"
+        name: "layout"
+        widget: "hidden"
+        default: "post"
       - label: "Summary"
         name: "description"
         widget: "text"
