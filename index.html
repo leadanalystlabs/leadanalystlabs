@@ -275,7 +275,7 @@
     margin-left: 8px;
   }
 
-  /* RESOURCE GRID (Reused for Projects) */
+  /* RESOURCE GRID */
   .resource-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -353,7 +353,6 @@
   .card-meta::after { content: '→'; transition: transform 0.2s;}
   .resource-card:hover .card-meta::after { transform: translateX(5px); }
 
-
   /* FOOTER */
   footer {
     padding: 40px 0;
@@ -412,8 +411,8 @@
         <span class="tag">Cyber Threat Intelligence</span>
         <span class="tag">VirusTotal</span>
         <span class="tag">Hybrid Analysis</span>
-        <span class="tag">GreyNoise</span>
-        <span class="tag">VirtualBox</span>
+        <span class="tag">Tria.ge Sandbox</span>
+        <span class="tag">PCAP Dissection</span>
         <span class="tag">OSINT</span>
       </div>
 
@@ -435,6 +434,16 @@
     </div>
     
     <div class="resource-grid">
+      <!-- Kevin Live Tool Card -->
+      <a href="https://kevin.leadanalystlabs.com" target="_blank" rel="noopener noreferrer" class="resource-card">
+        <div class="card-top">
+          <span class="card-icon">⚡</span>
+          <div class="card-name">Kevin: AiTM &amp; Malware PCAP Analyzer</div>
+        </div>
+        <p class="card-desc">High-performance network packet analyzer detecting Adversary-in-the-Middle (AiTM) identity proxying, ClickFix/ClearFake social engineering lures, and automated sandbox correlation via Tria.ge, Hybrid Analysis, and URLhaus.</p>
+        <div class="card-meta">Launch Live App</div>
+      </a>
+
       <a href="https://leadanalystlabs.com/blog.html" target="_blank" class="resource-card">
         <div class="card-top">
           <span class="card-icon">🔬</span>
